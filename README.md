@@ -1,6 +1,6 @@
 # Tercera tarea de APA: Multiplicaciones de vectores y ortogonalidad
 
-## Nom i cognoms
+## Nom i cognoms: Bernat Rubiol Brusau
 
 El fichero `algebra/vectores.py` incluye la definición de la clase `Vector` con los
 métodos desarrollados en clase, que incluyen la construcción, representación y
@@ -35,8 +35,8 @@ $v_2$, y $v_1^\perp$ es normal (perpendicular) a $v_2$.
 
 > Se puede demostrar:
 >
-> - $v_1^\parallel = \frac{v_1\cdot v_2}{\left|v_2\right|^2} v_2$
-> - $v_1^\perp = v_1 - v_1^\parallel$
+> - $v_1^ \parallel = \frac{v_1\cdot v_2}{\left| v_2 \right| ^2} v_2$
+> - $v_1^\perp = v_1 - v_1^ \parallel$
 
 - Sobrecargue el operador doble barra inclinada (`//`, métodos `__floordiv__()`,
   `__rfloordiv__()`, etc.) para que devuelva la componente tangencial $v_1^\parallel$.
@@ -89,3 +89,6 @@ La entrega se formalizará mediante *pull request* al repositorio de la tarea.
 El fichero `README.md` deberá respetar las reglas de los ficheros Markdown y
 visualizarse correctamente en el repositorio, incluyendo la imagen con la ejecución de
 los tests unitarios y el realce sintáctico del código fuente insertado.
+
+
+![Resultats](captura%20resultats.PNG)

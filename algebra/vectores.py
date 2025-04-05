@@ -1,7 +1,7 @@
 """
-    Tercera tarea de APA - manejo de vectores
+    Tercera tasca de APA - manejo de vectores
 
-    Nombre y apellidos:
+    Nom i cognoms: Bernat Rubiol Brusau
 """
 
 class Vector:
@@ -84,4 +84,97 @@ class Vector:
         """
 
         return -self + other
+    
+    # Lo d'abans ve directe del fork
+    def __mul__(self, other):
+        """
+        Multiplicació per un escalar o producte Hadamard amb un altre vector.
 
+        >>> v1 = Vector([1, 2, 3])
+        >>> v2 = Vector([4, 5, 6])
+        >>> v1 * 2
+        Vector([2, 4, 6])
+        >>> v1 * v2
+        Vector([4, 10, 18])
+        """
+        if isinstance(other, (int, float, complex)):
+            return Vector(element * other for element in self)
+        else:
+            return Vector(e1 * e2 for e1, e2 in zip(self, other))
+
+    __rmul__ = __mul__
+
+    def __matmul__(self, other):
+        """
+        Producte escalar entre dos vectors.
+
+        >>> v1 = Vector([1, 2, 3])
+        >>> v2 = Vector([4, 5, 6])
+        >>> v1 @ v2
+        32
+        """
+        return sum(e1 * e2 for e1, e2 in zip(self, other))
+
+    def __rmatmul__(self, other):
+        """
+        Producte escalar reflectit.
+
+        >>> v1 = Vector([1, 2, 3])
+        >>> v2 = Vector([4, 5, 6])
+        >>> v2.__rmatmul__(v1)
+        32
+        """
+        return self.__matmul__(other)
+
+    def __floordiv__(self, other):
+        """
+        Component paral·lela del vector respecte a un altre vector.
+
+        >>> v1 = Vector([2, 1, 2])
+        >>> v2 = Vector([0.5, 1, 0.5])
+        >>> v1 // v2
+        Vector([1.0, 2.0, 1.0])
+        """
+        factor = (self @ other) / (other @ other)
+        return Vector(factor * x for x in other)
+
+    def __rfloordiv__(self, other):
+        """
+        Component paral·lela reflectida (no canviaria el resultat si other és Vector).
+        (No funciona)
+
+        """
+        #factor = (other @ self) / (self @ self)
+        #return Vector(factor * x for x in self)
+        # No es pot fer així perquè sino al fer el test retorna error
+        if not isinstance(other, Vector):
+                raise TypeError("No podem projectar un escalar a un vector")
+
+    def __mod__(self, other):
+        """
+        Component perpendicular del vector respecte a un altre vector.
+
+        >>> v1 = Vector([2, 1, 2])
+        >>> v2 = Vector([0.5, 1, 0.5])
+        >>> v1 % v2
+        Vector([1.0, -1.0, 1.0])
+        """
+        return self - (self // other)
+
+    def __rmod__(self, other):
+        """
+        Component perpendicular reflectida.
+        (No funciona)
+        """
+        #return other - (other // self)
+        # Aquest mètode com el de __rflordiv__ no es pot fer així perquè sino al fer el test retorna error
+        
+        if not isinstance(other, Vector): 
+                raise TypeError("No es pot projector un escalar a un vector")
+
+    def __iter__(self):
+        return iter(self.vector)
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
